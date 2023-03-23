@@ -61,7 +61,7 @@ class SIGN(nn.Layer):
         dist_feat = a2a_g.edge_feat['dist']
         atom_feat = paddle.cast(atom_feat, 'float32')
         dist_feat = paddle.cast(dist_feat, 'float32')
-        print(a2a_g.num_edges, a2a_g.edge_feat['dist'].shape)
+        #print(a2a_g.num_edges, a2a_g.edge_feat['dist'].shape)
 
         atom_h = atom_feat
         dist_h = self.input_layer(dist_feat)

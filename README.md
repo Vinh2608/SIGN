@@ -22,7 +22,7 @@ Alternatively, we also provided a [dropbox link](https://www.dropbox.com/sh/2uih
 
 The downloaded dataset should be preprocessed to obtain features and spatial coordinates:
 ```
-python preprocess_pdbbind.py --data_path_core YOUR_DATASET_PATH --data_path_refined YOUR_DATASET_PATH --dataset_name pdbbind2016 --output_path YOUR_OUTPUT_PATH --cutoff 5
+python preprocess_pdbbind.py --data_path_core data/core-set --data_path_refined data/refined-set3 --dataset_name pdbbind2020 --output_path data/ --cutoff 5
 ```
 The parameter cutoff is the threshold of cutoff distance between atoms.
 

@@ -55,7 +55,7 @@ def sd(y,f):
     y_ = lr.predict(f)
     sd = (((y - y_) ** 2).sum() / (len(y) - 1)) ** 0.5
     return sd
-
+    
 def pearson(y,f):
     rp = np.corrcoef(y, f)[0,1]
     return rp

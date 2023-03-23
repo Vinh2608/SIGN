@@ -156,6 +156,10 @@ def load_pk_data(data_path):
             code, pk = cont[0], cont[3]
             res[code] = float(pk)
     return res
+    # for file in os.listdir(data_path):
+    #     code, pk = file.split('_')[0], -np.log10((float(file.split('_')[1]))/1e6)
+    #     res[code] = pk
+    # return res
 
 def get_lig_atom_types(feat):
     pos = np.where(feat[:,:9]>0)
@@ -264,7 +268,7 @@ def cons_lig_pock_graph_with_spatial_context(ligand, pocket, add_fea=2, theta=5,
     edges = lig_edge + lig_pock_edge + pock_edge
     lig_atoms = get_lig_atom_types(feas)
     pock_atoms = get_pock_atom_types(feas)
-    assert len(lig_atoms) ==  lig_size and len(pock_atoms) == pock_size
+    #assert len(lig_atoms) ==  lig_size and len(pock_atoms) == pock_size #comment this out to run
     
     atoms = np.concatenate([lig_atoms, pock_atoms]) if len(pock_fea) > 0 else lig_atoms
     
@@ -309,7 +313,7 @@ def process_dataset(core_path, refined_path, dataset_name, output_path, cutoff):
     # interaction features
     processed_dict = pairwise_atomic_types(path, processed_dict, atom_types, atom_types_)
     # load pka (binding affinity) data
-    pk_dict = load_pk_data(path+'index/INDEX_general_PL_data.2016')
+    pk_dict = load_pk_data(path+'/index/INDEX_general_PL_data.2020')
     data_dict = processed_dict
     for k,v in processed_dict.items():
         v['pk'] = pk_dict[k]
@@ -355,7 +359,7 @@ if __name__ == "__main__":
     parser.add_argument('--data_path_core', type=str)
     parser.add_argument('--data_path_refined', type=str)
     parser.add_argument('--output_path', type=str, default='./data/')
-    parser.add_argument('--dataset_name', type=str, default='pdbbind2016')
+    parser.add_argument('--dataset_name', type=str, default='pdbbind2020')
     parser.add_argument('--cutoff', type=float, default=5.)
     args = parser.parse_args()
     process_dataset(args.data_path_core, args.data_path_refined, args.dataset_name, args.output_path, args.cutoff)

@@ -66,7 +66,7 @@ class ComplexDataset(BaseDataset):
     
     def save(self):
         """ Save the generated graphs. """
-        print('Saving processed complex data...')
+        #print('Saving processed complex data...')
         graphs = [self.a2a_graphs, self.b2a_graphs, self.b2b_grpahs_list]
         global_feat = [self.inter_feats_list, self.bond_types_list, self.type_count_list]
         with open(self.graph_path, 'wb') as f:
@@ -74,7 +74,7 @@ class ComplexDataset(BaseDataset):
 
     def load(self):
         """ Load the generated graphs. """
-        print('Loading processed complex data...')
+        #print('Loading processed complex data...')
         with open(self.graph_path, 'rb') as f:
             graphs, global_feat, labels = pickle.load(f)
         return graphs, global_feat, labels
@@ -151,8 +151,8 @@ class ComplexDataset(BaseDataset):
             b = dist_mat[body2[0], body2[1]]
             c = dist_mat[body1[0], body2[1]]
             if a == 0 or b == 0:
-                print(body1, body2)
-                print('One distance is zero.')
+                #print(body1, body2)
+                #print('One distance is zero.')
                 angle_feat[i] = 0.
                 return None, None
                 # exit(-1)
@@ -201,12 +201,13 @@ class ComplexDataset(BaseDataset):
             self.inter_feats_list, self.bond_types_list, self.type_count_list = global_feat
             self.labels = labels
         else:
-            print('Processing raw protein-ligand complex data...')
+            #print('Processing raw protein-ligand complex data...')
             file_name = os.path.join(self.data_path, "{0}.pkl".format(self.dataset))
             with open(file_name, 'rb') as f:
                 data_mols, data_Y = pickle.load(f)
 
             for mol, y in tqdm(zip(data_mols, data_Y)):
+                #print(f"mols are {mol}, y is {y}")
                 graphs, global_feat = self.build_graph(mol)
                 if graphs is None:
                     continue
@@ -240,7 +241,7 @@ def collate_fn(batch):
 
 
 if __name__ == "__main__":
-    complex_data = ComplexDataset("./data/", "pdbbind2016_test", 5, 6)
+    complex_data = ComplexDataset("./data/", "pdbbind2020_test", 5, 6)
     loader = Dataloader(complex_data,
                         batch_size=32,
                         shuffle=False,
@@ -249,7 +250,7 @@ if __name__ == "__main__":
     cc = 0
     for batch in loader:
         a2a_g, b2a_g, b2b_gl, feats, types, counts, labels = batch
-        print(labels)
+        #print(labels)
         cc += 1
         if cc == 2:
             break

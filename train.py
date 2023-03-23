@@ -93,7 +93,7 @@ def train(args, model, trn_loader, tst_loader, val_loader):
                 epoch, sum_loss/(epoch_step*args.batch_size), sum_loss_inter/(epoch_step*args.batch_size), end_trn-start, end_val-end_trn)
         log += 'Val - RMSE: %.6f, MAE: %.6f, SD: %.6f, R: %.6f.\n' % (rmse_val, mae_val, sd_val, r_val)
         log += 'Test - RMSE: %.6f, MAE: %.6f, SD: %.6f, R: %.6f.\n' % (rmse_tst, mae_tst, sd_tst, r_tst)
-        print(log)
+        #print(log)
 
         if rmse_val < rmse_val_best:
             rmse_val_best = rmse_val
@@ -119,7 +119,7 @@ if __name__ == "__main__":
     parser.add_argument('--data_dir', type=str, default='./data/')
     parser.add_argument('--dataset', type=str, default='pdbbind2016')
     parser.add_argument('--model_dir', type=str, default='./output/sign')
-    parser.add_argument('--cuda', type=str, default='0')
+    parser.add_argument('--cuda', type=str, default='-1')
     parser.add_argument('--seed', type=int, default=123)
     parser.add_argument("--save_model", action="store_true", default=True)
 
